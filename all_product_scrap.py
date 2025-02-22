@@ -69,7 +69,7 @@ def fetch_and_save_html(url, category, MAX_PAGES):
             for product in products:
                 file.write(str(product) + "\n\n")
 
-        print(f"✅ Saved: {filename}")
+        print(f"Saved: {filename}")
 
 # Fetch product pages
 for category, data in urls.items():
