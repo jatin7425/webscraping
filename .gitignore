@@ -3,6 +3,7 @@ venv/
 env/
 myvenv/
 myenv/
+webpage_templates/
 
 # Ignore Python cache files
 __pycache__/
