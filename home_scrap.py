@@ -35,14 +35,11 @@ def fetch_page(url, headers, path):
 
 fetch_page(url, headers, "webpage_templates/pages/home.html")
 
-# Read the saved HTML file
 with open("webpage_templates/pages/home.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 
-# Parse the HTML
 soup = BeautifulSoup(html_content, "html.parser")
 
-# Find all images
 images = []
 hyperlinks = []
 buttons = []
@@ -55,18 +52,15 @@ for img in soup.find_all("img"):
     images.append({"src": img_src, "alt": img_alt})
     hyperlinks.append({"text" : f"{img_alt} image", "url": img_src})
 
-# Find all hyperlinks
 for link in soup.find_all("a"):
     link_text = link.text.strip() if link.text.strip() else "No Text"
     link_href = link.get("href")
     hyperlinks.append({"text": link_text, "url": link_href})
 
-# Find all buttons (regular <button> tags)
 for button in soup.find_all("button"):
     button_text = button.text.strip() if button.text.strip() else "No Text"
     buttons.append({"text": button_text})
 
-# Find clickable divs (buttons disguised as <div> or <a> with a button class)
 for div_button in soup.find_all(["div", "a"], class_=lambda x: x and "button" in x.lower()):
     button_text = div_button.text.strip() if div_button.text.strip() else "No Text"
     buttons.append({"text": button_text})

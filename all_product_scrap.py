@@ -5,7 +5,6 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-# Base URLs for categories
 urls = {
     "laptop": {"url": "https://www.dell.com/en-in/shop/dell-laptops/scr/laptops", "page_limit": 3},
     "desktop": {"url": "https://www.dell.com/en-in/shop/scc/scr/desktops", "page_limit": 1},
@@ -39,9 +38,11 @@ def extract_base_url(image_url):
     """
     return image_url.split("?")[0] if "?" in image_url else image_url
 
+
 def sanitize_filename(category, page_number):
     """ Creates a valid filename for each page. """
     return f"webpage_templates/{category}/page_{page_number}.html"
+
 
 def fetch_and_save_html(url, category, MAX_PAGES):
     """ Fetch all paginated pages until no more products exist. """
@@ -53,14 +54,14 @@ def fetch_and_save_html(url, category, MAX_PAGES):
         soup = BeautifulSoup(response.text, "html.parser")
 
         if response.status_code != 200:
-            print(f"❌ Stopping at page {page} for {category}, status: {response.status_code}")
+            print(f"Stopping at page {page} for {category}, status: {response.status_code}")
             break
 
         soup = BeautifulSoup(response.text, "html.parser")
         products = soup.find_all("article", class_="ps-stack")
 
         if not products:
-            print(f"❌ No products found on page {page}. Stopping pagination.")
+            print(f"No products found on page {page}. Stopping pagination.")
             break
 
         filename = sanitize_filename(category, page)
@@ -71,19 +72,18 @@ def fetch_and_save_html(url, category, MAX_PAGES):
         print(f"✅ Saved: {filename}")
 
 # Fetch product pages
-# for category, data in urls.items():
-#     fetch_and_save_html(data['url'], category, data['page_limit'])
+for category, data in urls.items():
+    fetch_and_save_html(data['url'], category, data['page_limit'])
 
-# ---------------------------------------------------------------------------------------------------------------------------------------------
+
 
 # Fetch Saved files
-
 files_path = []
 
 def list_directory_tree(root_dir):
     """Recursively lists only HTML files in a tree structure."""
     if not os.path.exists(root_dir):
-        print("❌ Directory does not exist!")
+        print("Directory does not exist!")
         return
 
     for root, dirs, files in os.walk(root_dir):
@@ -95,9 +95,7 @@ def list_directory_tree(root_dir):
 root_directory = "webpage_templates"
 list_directory_tree(root_directory)
 
-# print(files_path)
 
-# ---------------------------------------------------------------------------------------------------------------------------------------------
 
 # Read and extract product details from saved files
 def extract_product_data(file_path):
@@ -168,12 +166,12 @@ def extract_product_data(file_path):
                     extracted_products.append(product_data)
                     
             except json.JSONDecodeError:
-                print(f"⚠️ Error decoding JSON in {file_path}")
+                print(f"Error decoding JSON in {file_path}")
 
         return extracted_products
 
 
-# ---------------------------------------------------------------------------------------------------------------------------------------------
+
 
 # Extract products from saved HTML files
 all_products = []
@@ -203,4 +201,4 @@ all_products.extend(old_data)
 with open(json_file, "w", encoding="utf-8") as f:
     json.dump(all_products, f, indent=4)
 
-print(f"✅ Extracted {len(all_products)} products and saved to {json_file}.")
+print(f"Extracted {len(all_products)} products and saved to {json_file}.")
