@@ -46,3 +46,70 @@ To scrape home page data, use:
 python home_scrap.py
 ```
 
+
+# this repo include two file
+
+
+
+# Web Scraper for Dell Support Page
+
+## Overview
+
+This project is a web scraper that extracts images, hyperlinks, and buttons from the [Dell Support Page](https://www.dell.com/support/home/en-in). The extracted data is saved into structured CSV files for further analysis and automation.
+
+## Workflow
+
+1. **Fetch the Web Page**
+   - Sends a request to the Dell Support page.
+   - Uses random User-Agent headers to avoid detection.
+   - Saves the HTML content to `webpage_templates/pages/home.html`.
+
+2. **Parse the HTML**
+   - Uses BeautifulSoup to parse the downloaded HTML file.
+   - Extracts:
+     - **Images** (`src` and `alt` attributes)
+     - **Hyperlinks** (`a` tags including text and URLs)
+     - **Buttons** (`<button>` tags and elements styled as buttons, including clickable `div` and `a` elements)
+
+3. **Save Extracted Data to CSV**
+   - Saves extracted images to `data/images.csv`
+   - Saves extracted links to `data/links.csv`
+   - Saves extracted buttons to `data/buttons.csv`
+
+## Prerequisites
+
+- Python 3.x
+- Install required dependencies using `pip install -r requirements.txt`
+
+## Installation & Usage
+
+1. Clone the repository and navigate to the project folder.
+2. Create a virtual environment (optional but recommended) and activate it.
+3. Install dependencies using `pip install -r requirements.txt`.
+4. Run the scraper script.
+
+## Sample Output
+
+The extracted data is saved in CSV format. Example structure:
+
+**images.csv:**
+```
+src,alt
+https://example.com/image1.jpg,Product Image
+https://example.com/image2.jpg,No Alt Text
+```
+
+**links.csv:**
+```
+text,url
+Support Page,https://www.dell.com/support
+Contact Us,https://www.dell.com/contact
+```
+
+**buttons.csv:**
+```
+text
+Submit
+Learn More
+```
+
