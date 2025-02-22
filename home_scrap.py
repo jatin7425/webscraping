@@ -1,10 +1,11 @@
 
+import os
 from bs4 import BeautifulSoup
 import csv
 import requests
 import random
 
-url = "https://www.dell.com/en-in/shop/dell-laptops/scr/laptops"
+url = "https://www.dell.com/support/home/en-in"
 
 user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -18,6 +19,10 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+
+os.makedirs(f"webpage_templates/pages", exist_ok=True)
+os.makedirs(f"data/", exist_ok=True)
+
 def fetch_page(url, headers, path):
     response = requests.get(url, headers=headers)
 
@@ -28,10 +33,10 @@ def fetch_page(url, headers, path):
     else:
         print(f"Failed to fetch page: {response.status_code}")
 
-fetch_page(url, headers, "data/home.html")
+fetch_page(url, headers, "webpage_templates/pages/home.html")
 
 # Read the saved HTML file
-with open("data/home.html", "r", encoding="utf-8") as f:
+with open("webpage_templates/pages/home.html", "r", encoding="utf-8") as f:
     html_content = f.read()
 
 # Parse the HTML

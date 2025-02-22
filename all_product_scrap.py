@@ -41,11 +41,11 @@ def extract_base_url(image_url):
 
 def sanitize_filename(category, page_number):
     """ Creates a valid filename for each page. """
-    return f"product/{category}/page_{page_number}.html"
+    return f"webpage_templates/{category}/page_{page_number}.html"
 
 def fetch_and_save_html(url, category, MAX_PAGES):
     """ Fetch all paginated pages until no more products exist. """
-    os.makedirs(f"product/{category}", exist_ok=True)
+    os.makedirs(f"webpage_templates/{category}", exist_ok=True)
 
     for page in range(1, MAX_PAGES + 1):
         paginated_url = f"{url}?page={page}"
@@ -71,8 +71,8 @@ def fetch_and_save_html(url, category, MAX_PAGES):
         print(f"✅ Saved: {filename}")
 
 # Fetch product pages
-for category, data in urls.items():
-    fetch_and_save_html(data['url'], category, data['page_limit'])
+# for category, data in urls.items():
+#     fetch_and_save_html(data['url'], category, data['page_limit'])
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -89,9 +89,10 @@ def list_directory_tree(root_dir):
     for root, dirs, files in os.walk(root_dir):
         for file in files:
             if file.endswith(".html"):  # Only save HTML files
+                
                 files_path.append(os.path.join(root, file))
 
-root_directory = "product"
+root_directory = "webpage_templates"
 list_directory_tree(root_directory)
 
 # print(files_path)
@@ -179,9 +180,11 @@ all_products = []
 
 for file_path in files_path:
     all_products.extend(extract_product_data(file_path))  # Add all extracted products
+    
+os.makedirs(f"data/", exist_ok=True)
 
 # Save to JSON file properly
-json_file = "product/details.json"
+json_file = "data/details.json"
 
 # Check if file exists, and load old data if present
 if os.path.exists(json_file):
