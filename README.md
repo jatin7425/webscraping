@@ -1,4 +1,4 @@
-# 🖥️ Dell Product & Support Page Scraper
+# 🖥️ Dell Products & Support Page Scraper
 
 ## 🚀 Overview
 This project includes web scrapers designed to extract product details and support page data from [Dell's website](https://www.dell.com). The extracted data is saved in structured formats for further analysis and automation.
