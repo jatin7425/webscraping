@@ -1,0 +1,15 @@
+# Ignore Python virtual environments
+myvenv/
+venv/
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore CSV data files (if you don’t want to track them)
+data/*.csv
+webpage_templates/*
+
+# Ignore system files
+.DS_Store
+Thumbs.db
