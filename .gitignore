@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore Python virtual environments
 myvenv/
 venv/
@@ -13,3 +14,39 @@ webpage_templates/*
 # Ignore system files
 .DS_Store
 Thumbs.db
+=======
+# Ignore Python virtual environment
+venv/
+env/
+myvenv/
+myenv/
+webpage_templates/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temp files
+*.log
+*.tmp
+
+# Ignore JSON & CSV data files (if needed)
+*.json
+*.csv
+
+# Ignore Selenium WebDriver files
+chromedriver.exe
+geckodriver.exe
+
+# Ignore product HTML files
+product/
+
+# Ignore unwanted py files
+VisualizeData.py
+
+>>>>>>> fa3a1e8f401af46fbe98054c9d1610a798615941
